@@ -1,0 +1,637 @@
+
+## 未知功能！！！！
+#macro ( c $paras )
+	#if($!paras)
+		#set($content = "")
+		#set($key = "")
+		#set($value = "")
+		#foreach($para in $paras)
+			#if($velocityCount == 1)
+				#set($content = $contain.get($!para))
+			#else
+				#if($velocityCount % 2 == 0)
+					#set($key = $para)
+				#else
+					#set($value = $para)
+				#end
+				#set($content = $content.setParameter($key, $value))
+			#end
+		#end
+		$!content
+	#end
+#end
+
+################################################################################
+## 直接输出宏
+##
+## @param: $direct-output 待输出数据
+################################################################################
+#macro ( direct $direct-output )$!direct-output#end
+
+
+################################################################################
+## 必填提示
+################################################################################
+#macro( requiredTag )
+	<span class="red">*</span>
+#end
+
+
+################################################################################
+## parse加强版，兼容原生parse，可处理相对路径
+## @param: $page 路径参数，需要带后缀，如../../XXX/X.vm，必须；文件路径，同一目录下，直接填写文件名即可。
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-22 新增
+################################################################################
+#macro( parsePlus $page )
+	##绝对路径
+    #if($page.startsWith("/"))
+        #parse($page)
+    #else
+		##相对路径
+        #set($uri = $velocityUtils.getTemplateName())
+        #set($path = $uri.substring(0, $uri.lastIndexOf("/")))
+        #parse("$path/$page")
+    #end
+#end
+
+
+################################################################################
+## 通用分页宏
+## 传入的分页数据参数必须使用"page"作为参数名, 并且仅支持这一个参数
+##
+## @param: page 分页数据参数, 必须
+## @param: formId 页面查询条件的表单id, 可选, 默认取"searchForm"
+## @param: action 分页查询提交的action, 可选
+## @param: expression 跳转页面页数的hidden对象, 可选
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-12-14 修改
+################################################################################
+#macro ( pager $page $formId $action $expression )
+	#if($!stringUtils.isBlank("$!{formId}"))
+		#set($formId="searchForm")
+	#end
+	<div class="pages-box">
+    <div class="pages">
+	        #if($!{page} && $!{page.totalCount} > 0)
+	            <div id="_page">
+	        		<span>每页显示条数：</span>
+	        		<select id="_page_size" value="$!{page.pageSize}" title="选择每页显示条数" class="inp" style="width:60px;">
+	        			#foreach($a in ${page.pageSizes})
+	        				<option value="$a" #if($!{page.pageSize} == $a) selected #end>$a</option>
+	        			#end
+	                </select>
+	        		<input id="_go_page" type="text" value="$!{page.currentPage}" size="2" title="输入页码按回车"  class="inp" style="width:50px;"/>
+	        		<a id="_go" href="#" style="color:#000"  class="inp">GO</a>
+	        		#if(!$!{page.firstPage})
+	        			<a id="_pre_page" href="#" style="font-weight:bold" title="前十页">&laquo;</a>
+	        			<input type="hidden" value="$!{page.prePage}" />
+	        		#else
+	        			<a id="_none_pre_page" href="#" style="font-weight:bold" title="已是首页">&laquo;</a>
+	        		#end 
+	        		#foreach($p in [$page.beginPage..$page.endPage])			
+	                	#if($!{page.currentPage} != ${p})<a id="_page_no" href="#">$!{p}</a>#else<b> $!{p} </b>#end		
+	        		#end
+	        		#if(!$!{page.lastPage})
+	        			<a id="_next_page" href="#" style="font-weight:bold" title="后十页">&raquo;</a>
+	        			<input type="hidden" value="$!{page.nextPage}" />
+	        		#else
+	        			<a id="_none_next_page" href="#" style="font-weight:bold" title="已是末页">&raquo;</a>
+	        		#end
+	        		<span>总条数: $!page.totalCount  
+	        		&nbsp;页数: [  $!{page.currentPage} / $!{page.totalPage} ]</span>
+	        		<input type="hidden" id="_total_page" value="$!{page.totalPage}" />
+	        	</div>
+	        #else
+	        	没有找到符合条件的结果
+	        #end
+	        #if ($page)
+	        	<input type="hidden" id="orderStr" name="orderStr" value="$!{page.orderStr}"/>
+	        #end
+	        <script type="text/javascript">
+	        	_data = jQuery.trim("$!{data}");
+	        	_formId = jQuery.trim("$!{formId}");
+	        	_action = jQuery.trim("$!{action}");
+	        	_expression = jQuery.trim("$!{expression}");
+	        </script>
+	        <script type="text/javascript" src="$appServer.get('/scripts/ccps.page.js')"></script>
+    </div>
+	</div>
+#end
+
+
+################################################################################
+## 分页上下文参数
+## @param: commandName 命令对象名,可选,默认取"query"
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-22 新增
+################################################################################
+#macro( pagerContext $commandName )
+	#if($!stringUtils.isBlank("$!{commandName}"))
+		#set($commandName="query")
+	#end
+	#springFormHiddenInput("$!{commandName}.pageSize")
+#end
+
+
+################################################################################
+## 文本输入框
+## @param th 标题，必须
+## @param path 绑定字段名，必须
+## @param isRequired 是否必填，可选，默认非必填（必填加红星）
+## @param attributes 属性，可选，默认取"class='inp inp-w120'"
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-22 新增
+################################################################################
+#macro( springFormTextInput $th $path $isRequired $attributes )
+	#if($!stringUtils.isBlank("$!{attributes}"))
+		#set($contextAttributes = "class='inp inp-w120'")
+	#else
+		#set($contextAttributes = $attributes)
+	#end
+	<th>$!{th}</th>
+	<td >
+		#springFormInput($path, $contextAttributes)
+		#if($!stringUtils.equals("$!{isRequired}","true"))
+			#requiredTag()
+		#end
+		#springShowErrors("<br>","red")
+	</td>
+#end
+
+
+################################################################################
+## 查询表单按钮
+## @param attributes 属性，可选
+## @param methods {"submitMethod":"XXX", "clearMethod":"XXX"} 属性，可选
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-22 新增
+################################################################################ 
+#macro( springFormButton $attributes $methods $extButtons )
+	<td $!{attributes} id="springFormButton">
+		#set($submitMethod = $!{methods.submitMethod} )
+		#set($clearMethod = $!{methods.clearMethod} )
+    	<input type="button" id="searchButton" class="btn search" value="搜 索" onclick="#if($submitMethod) $submitMethod #else helper.submitForm() #end;"/>
+    	<input type="button" id="clearButton" class="btn clear"  value="清 空" onclick="#if($clearMethod) $clearMethod #else helper.clearForm() #end;"/>
+		#if($extButtons)
+			#foreach($button in $extButtons)
+				#if(${button.id})
+    				#set($buttonId=$!{button.id})
+				#end
+				#if(${button.cls})
+					#set($buttonCls=$!{button.cls})
+				#end
+				#if(${button.name})
+    				#set($buttonName=$!{button.name})
+				#end
+				#if(${button.event})
+    				#set($buttonEvent=$!{button.event})
+				#end
+		    	<input type="button" id="$!{buttonId}" class="btn $!{buttonCls}" value="$!{buttonName}" onclick="$!{buttonEvent}" />
+			#end
+		#end
+	</td>
+#end
+
+
+################################################################################
+## 工具栏按钮
+## @param th 标题，必须
+## @param attributes 属性，可选
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-22 新增
+################################################################################
+#macro( springToolBarButton $th $attributes )
+	<span><a href="javascript:void(0)" hideFocus="true" $!{attributes} >$!{th}</a></span>
+#end
+
+
+################################################################################
+## 占位符
+## @param tag 标签名，必填
+## @param attributes 属性，可选
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-23 新增
+################################################################################
+#macro( placeholderTag $tag $attributes )
+	#if($tag)
+		<$!{tag} $!{attributes}></$!{tag}>
+	#end
+#end
+
+
+################################################################################
+## 下拉选择框
+## @param th 标题，必须
+## @param path 绑定字段名，必须
+## @param options 选择项，是一个map，必须
+## @param isRequired 是否必填，可选，默认非必填（必填加红星）
+## @param attributes 属性，可选，默认取"class='inp'"
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-23 新增
+################################################################################
+#macro( springFormSingledSelect $th $path $options $isRequired $attributes )
+	#if($!stringUtils.isBlank("$!{attributes}"))
+		#set($contextAttributes = "class='inp'")
+	#else
+		#set($contextAttributes = $attributes)
+	#end
+	<th>$!{th}</th>
+	<td >
+		#springFormSingleSelect($path, $options, $contextAttributes)
+		#if($!stringUtils.equals("$!{isRequired}","true"))
+			#requiredTag()
+		#end
+		#springShowErrors("<br>","red")
+	</td>
+#end
+
+
+################################################################################
+## 文本域输入框
+## @param th 标题，必须
+## @param path 绑定字段名，必须
+## @param isRequired 是否必填，可选，默认非必填（必填加红星）
+## @param attributes 属性，可选，默认取"class='inp inp-w200 inp-h60'"
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-23 新增
+## 2、2016-11-18 修改 tdAttributes 可对td的样式进行编辑
+################################################################################
+#macro( springFormTextArea $th $path $isRequired $attributes $tdAttributes)
+	#if($!stringUtils.isBlank("$!{attributes}"))
+		#set($contextAttributes = "class='inp inp-w200 inp-h60' style='resize:none;'")
+	#else
+		#set($contextAttributes = $attributes)
+	#end
+	#if($!stringUtils.isBlank("$!{tdAttributes}"))
+		#set($contextTdAttributes = "colspan='1'")
+	#else
+		#set($contextTdAttributes = $tdAttributes)
+	#end
+	<th>$!{th}</th>
+	<td ${contextTdAttributes}>
+		#springFormTextarea($path,$contextAttributes)
+		#if($!stringUtils.equals("$!{isRequired}","true"))
+			#requiredTag()
+		#end
+		#springShowErrors("<br>","red")
+	</td>
+#end
+
+
+
+################################################################################
+## 日期输入框
+## @param th 标题，必须
+## @param path 绑定字段名，必须
+## @param isRequired 是否必填，可选，默认非必填（必填加红星）
+## @param attributes 属性，可选，默认取"class='inp'"
+## @param dateFmt 格式，可选，默认取"yyyy-MM-dd"
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-12-03 新增
+################################################################################
+#macro( springFormInputDateSingle $th $path $isRequired $attributes $dateFmt )
+	#if($!stringUtils.isBlank("$!{attributes}"))
+		#set($contextAttributes = "class='inp Wdate'")
+	#else
+		#set($contextAttributes = $attributes)
+	#end
+	#if($!stringUtils.isBlank("$!{dateFmt}"))
+		#set($tempFormat="yyyy-MM-dd")
+	#else
+		#set($tempFormat="$!{dateFmt}")
+	#end
+	<th>$!{th}</th>
+	<td >
+        #springBind($path)
+        <input type="text" id="${status.expression}" name="${status.expression}" value="$!{status.value}" readonly onclick="WdatePicker({dateFmt:'$!{tempFormat}'})" $!{contextAttributes} />
+    	#if($!stringUtils.equals("$!{isRequired}","true"))
+			#requiredTag()
+		#end
+		#springShowErrors("<br>","red")
+	</td>
+#end
+
+################################################################################
+## 日期区间
+## @param th 标题，必须
+## @param path1 绑定下限字段名，必须
+## @param path2 绑定上限字段名，必须
+## @param attributes 属性，可选，默认取"class='inp Wdate'"
+## @param dateFmt 格式，可选，默认取"yyyy-MM-dd"
+## @param tdAttributes td属性（ex：colspan="2"），可选，默认取""
+## @coder：chengls13783@hundsun.com
+## 修改记录：
+## 1、2015-12-03 新增
+################################################################################
+#macro( springFormInputDateSection $th $path1 $path2 $attributes $dateFmts $tdAttributes)
+	#if($!stringUtils.isBlank("$!{attributes}"))
+		#set($contextAttributes = "class='inp Wdate'")
+	#else
+		#set($contextAttributes = $attributes)
+	#end
+	#if($!stringUtils.isBlank("$!{dateFmts}"))
+		#set($tempFormat="yyyy-MM-dd")
+	#else
+		#set($tempFormat="$!{dateFmts}")
+	#end
+	#set($maxDateName = $!stringUtils.getRealName("$!{path2}"))
+	#set($minDateName = $!stringUtils.getRealName("$!{path1}"))
+	<th>$!{th}</th>
+	<td $!{tdAttributes}>
+        #springBind($path1)
+        <input type="text" id="${status.expression}" name="${status.expression}" value="$!{status.value}" readonly onclick="WdatePicker({dateFmt:'$!{tempFormat}', maxDate:'#F{$dp.$D(\'$!{maxDateName}\')}'})" $!{contextAttributes} data-dateformat="$!{tempFormat}"/>
+    	-
+        #springBind($path2)
+        <input type="text" id="${status.expression}" name="${status.expression}" value="$!{status.value}" readonly onclick="WdatePicker({dateFmt:'$!{tempFormat}', minDate:'#F{$dp.$D(\'$!{minDateName}\')}'})" $!{contextAttributes} data-dateformat="$!{tempFormat}"/>
+	</td>
+#end
+
+
+################################################################################
+## 交易所子市场选择
+## @param th1 exchange标题，必须
+## @param path1  绑定exchangeId
+## @param $attributes1 属性，可选，默认取"class='inp'
+## @param $select1  填写任意值 则会出现请选择选项
+## @param th2 exchangemarket 标题，必须
+## @param path2  绑定exchangeMarketCode
+## @param $attributes2  属性，可选，默认取"class='inp'
+## @param $select2 填写任意值 则会出现请选择选项
+## @param $addOrSelect  搜索栏 值为 select  新增栏 为 add 默认为 搜索栏 
+## 新增
+################################################################################
+#macro( exchangeSection $th1 $path1 $attributes1 $th2 $path2 $attributes2 $addOrSelect $isRequired1 $isRequired2 ) 
+	#if($!stringUtils.isBlank("$!{attributes1}"))
+		#set($attributes1 = "class='inp'")
+	#else
+		#set($attributes1  = $attributes1)
+	#end
+	#if($!stringUtils.isBlank("$!{attributes2}"))
+		#set($attributes2  = "class='inp'")
+	#else
+		#set($attributes2  = $attributes2)
+	#end
+    #if($!stringUtils.isBlank("$!{addOrSelect}"))
+		#set($addOrSelect  = "select")
+	#else
+		#set($addOrSelect  = $addOrSelect)
+	#end
+	#if("$addOrSelect" == "add")
+		<tr>
+	#end
+	<th>$th1</th>
+	<td>
+      #springFormSingleSelectExchange($path1,$!exchangeMarketUtils.getAllExchangeInfoName(),$!attributes1)
+	  #springBind($path1)
+	  #set($exchangeId = ${status.expression}+""+$addOrSelect)
+	 	#if($!stringUtils.equals("$!{isRequired1}","true"))
+			#requiredTag()
+		#end
+	</td>
+	#if("$addOrSelect" == "add")
+		</tr>
+	#end
+		#if("$addOrSelect" == "add")
+		<tr>
+	#end
+	<th>$th2</th>
+	<td>
+      #springFormSingleSelectExchange($path2,"",$!attributes2)
+	  #springBind($path2)
+	  #set($exchangeMarketCode = ${status.expression}+""+$addOrSelect)
+     #set($exchangeMarketCodeValue = ${status.value})
+	  	#if($!stringUtils.equals("$!{isRequired2}","true"))
+			#requiredTag()
+		#end
+	</td>
+	#if("$addOrSelect" == "add")
+		</tr>
+	#end
+	<script type="text/javascript">
+    jQuery(function(){
+	   var map = $!exchangeMarketUtils.getAllExchangeMarketJson();
+	   var option = "";
+       if(jQuery("#$!exchangeId option:selected").val()!=""){
+		   option +=" <option value=''>请选择</option>";
+	       for(var key in map){
+		   if( key+"" ==  jQuery("#$!exchangeId option:selected").val() ){
+		      for(var subkey  in  map[key]){
+			  if("$!exchangeMarketCodeValue" == subkey+""){
+              option +="<option value='"+subkey+"' selected = 'selected' >"+map[key][subkey]+"</option>";
+			  }else{
+			   option +="<option value='"+subkey+"'>"+map[key][subkey]+"</option>";
+			  }
+			}
+			}
+           }
+         jQuery("#$!exchangeMarketCode").append(option);
+	   }else{
+	      jQuery("#$!exchangeMarketCode").append("<option value=''>请选择</option>");
+	   }	
+	   jQuery("#$!exchangeId").change(function(){
+	   jQuery("#$!exchangeMarketCode").html('');
+	       var option1 = "";
+		   option1 +=" <option value=''>请选择</option>";
+	       for(var key in map){
+		   if( key+"" ==  jQuery("#$!exchangeId option:selected").val() ){
+		      for(var subkey  in  map[key]){
+              option1 +=" <option value='"+subkey+"'>"+map[key][subkey]+"</option>";
+			}
+			}
+           }
+         jQuery("#$!exchangeMarketCode").append(option1);
+	  })
+	 jQuery("#$!exchangeMarketCode").focus(function(){
+	     
+	     if(jQuery("#$!exchangeId").val()==""){ 
+
+	       jQuery("#$!exchangeMarketCode option").each(function(){
+		        if(jQuery(this).val()!=""){
+		jQuery(this).remove();  
+				}
+		  })
+	     }
+	  })
+	})
+	</script>
+#end
+
+################################################################################
+## 交易所子市场选择使用的springFormSingleSelectExchange
+## 新增
+################################################################################
+#macro( springFormSingleSelectExchange $path $options $attributes $addOrSelect)
+    #springBind($path)
+    <select id="${status.expression}$!addOrSelect" name="${status.expression}" ${attributes}>
+        #foreach($option in $options.keySet())
+            <option value="${option}"
+            #if("$!status.value" == "$option")
+                selected="selected"
+            #end>
+            ${options.get($option)}</option>
+        #end
+    </select>
+#end
+
+################################################################################
+## 功能说明：数据字典控件（仅需做好属性配置即可，不需要在Action写任何代码）
+## 参数说明：
+## @param dictEntry 字典条目编号
+## @param id 编号
+## @param name 姓名
+## @param selected 是否去掉"请选择"这一选项
+## @param dict_sub_entry_exclude 排除字典子项，排除多个字典子项用逗号分隔
+## @param dict_sub_entry_show 是否显示字典子项编号
+## @param dict_sub_entry_joinstr  显示字典子项编号时，字典子项编号和字典子项中文连接符
+## @param selectValue 默认选中某个字典子项
+## 使用方法：#dictCombox({"id":"paramStatus","name":"paramStatus","dictEntry":100001,"selected":true,"dict_sub_entry_exclude":"0,2","dict_sub_entry_joinstr":"-","selectValue":"1"})
+################################################################################
+#macro(dictCombox $params)
+    <th>$params.label</th>
+    <td>
+        <select id="${params.id}" class="inp" name="${params.name}">
+            #if($!{params.selected}!=false) 
+                <option #if($!params.selectValue=="") selected="selected"  #end value="">请选择</option>
+            #end 
+            #set ($isNotExclude = true)
+            #set($options =$!metadataUtil.queryDictSub($params.dictEntry))
+            #foreach($option in $options.keySet())
+                #set ($isNotExclude = true)
+                #foreach($exclude in $params.dict_sub_entry_exclude.split(",")) 
+                    #if($!{exclude}==$!{option}) 
+                        #set ($isNotExclude = false)
+                    #end	
+				#end
+				
+                #if($isNotExclude)
+                    <option value="$!option"  #if($!params.selectValue==$!option) selected="selected"  #end >
+                        #if($!{params.dict_sub_entry_show}) $option  $!{params.dict_sub_entry_joinstr} #end    
+                            ${options.get($option)}
+                    </option>
+                #end
+            #end
+        </select>
+    </td>
+#end
+################################################################################
+## 功能说明：获取token
+## 参数说明：
+## @param 
+## 使用方法：
+## 		页面引用#tokenHidden()
+## 		js调用：$("#txtTokenValue").change();
+################################################################################
+#macro(tokenHidden)
+    <input type="hidden" name="tokenKey" id="txtTokenKey" value="$!{tokenKey}" onchange="getToken();"/>
+    <input type="hidden" name="tokenValue" id="txtTokenValue" value="$!{tokenValue}" onchange="getToken();"/>
+	<script type="text/javascript">
+        function getToken(){
+            $.ajax({
+                        type: "post",
+                        url: "$appServer.get('/token/get.json')",
+                        dataType: "json",
+                        success: function (data) {
+    							//alert('test token');
+        						var token= JSON.parse(data.message);
+                                $("#txtTokenKey").val(token.tokenKey);
+            					$("#txtTokenValue").val(token.tokenValue);
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert("获取最新token失败");
+                        }
+                });
+        }
+    </script>	
+#end
+
+################################################################################
+## 编辑功能显示修改
+## @param th 标题，必须
+## @param path
+## @param $isRequired
+################################################################################
+#macro( editInputShow $th $path $showMap $isRequired)
+    #springBind($path)
+	<th>$th</th>
+	<td>
+	   #if($!showMap!="")
+		$showMap.get($!{status.value})
+	   #else
+	   $!{status.value}
+	    #end
+    #if($!stringUtils.equals("$!{isRequired}","true"))
+	<input type="hidden" id="$!{status.expression}" name="$!{status.expression}" value="$!{status.value}" > 	
+    #end
+	</td>
+#end
+
+################################################################################
+## 文本输入框(金额转换)
+## @param th 标题，必须
+## @param path 绑定字段名，必须
+## @param isRequired 是否必填，可选，默认非必填（必填加红星）
+## @param attributes 属性，可选，默认取"class='inp inp-w120'"
+## @coder：wangkx07777@hundsun.com
+## 修改记录：
+## 1、2015-11-22 新增
+################################################################################
+#macro( springFormTextInputfenToYuan $th $path $isRequired $attributes )
+	#if($!stringUtils.isBlank("$!{attributes}"))
+		#set($contextAttributes = "class='inp fenToYuan'")
+	#else
+		#set($contextAttributes = $attributes)
+	#end
+	<th>$!{th}</th>
+	<td >
+		#springFormInput($path, $contextAttributes)
+		#if($!stringUtils.equals("$!{isRequired}","true"))
+			#requiredTag()
+		#end
+		#springShowErrors("<br>","red")
+	</td>
+#end
+
+
+
+################################################################################
+## 交易市场下拉选择框
+## @param th 标题，必须
+## @param path 绑定字段名，必须
+## @param options 选择项，是一个map，必须
+## @param isRequired 是否必填，可选，默认非必填（必填加红星）
+## @param attributes 属性，可选，默认取"class='inp'"
+## @coder：yinzl@hundsun.com
+## 修改记录：
+## 1、2015-11-23 新增
+################################################################################
+#macro(ExchangeMarketCodeSingledSelect $th $path $options $isRequired $attributes )
+	#if($!stringUtils.isBlank("$!{attributes}"))
+		#set($contextAttributes = "class='inp' style='width:126px;'")
+	#else
+		#set($contextAttributes = $attributes)
+	#end
+	<th>$!{th}</th>
+	<td >
+		<select id="_exchangeMarketCode_hidden" name="_exchangeMarketCode_hidden" style="display:none;">
+                   #foreach($key in $options.keySet())  
+            			<option value="$key">$!options.get($key)</option>
+                   #end 
+        </select>
+		#springFormSingleSelect($path,$optionsBlank, $contextAttributes)
+		#if($!stringUtils.equals("$!{isRequired}","true"))
+			#requiredTag()
+		#end
+		#springShowErrors("<br>","red")
+	</td>
+#end

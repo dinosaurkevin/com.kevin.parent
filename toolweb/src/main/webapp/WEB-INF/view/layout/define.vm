@@ -1,0 +1,124 @@
+#set($layout = '')
+<title>#if($title)$title #else 统一登录平台(E-commerce Login Platform) #end</title>
+#set($t=5)
+$imageServer.setStamp("$!t")
+
+## ============================================CSS============================================
+#set($styleMode='dark')
+#if($iDemand.haveCss('basic'))
+	<link rel="stylesheet" href='$imageServer.get("$!{styleMode}/styles/basic.css")' />
+	<link rel="stylesheet" href='$imageServer.get("/scripts/xcConfirm/css/alertify.css")' />
+#end
+#if($iDemand.haveCss('admin'))
+	<link rel="stylesheet" href='$imageServer.get("$!{styleMode}/styles/admin.css")' />
+#end
+#if($iDemand.haveCss('skin-one'))
+	<link rel="stylesheet" type="text/css" href='$imageServer.get("/styles/skin-one.css")' />
+#end
+#if($iDemand.haveCss('overlay'))
+	<link rel="stylesheet" type="text/css" href="$imageServer.get('/styles/overlay.css')" />
+#end
+#if($iDemand.haveCss('calendar'))
+	<link rel="stylesheet" type="text/css" href="$imageServer.get('/styles/calendar.css')" />
+#end
+#if($iDemand.haveCss('z-tree'))
+	<link rel="stylesheet" type="text/css" href="$imageServer.get('/styles/zTreeStyle.css')" />
+#end
+#if($iDemand.haveCss('jquery.ui.css'))
+	<link rel="stylesheet" type="text/css" href="$!imageServer.get('/scripts/jquery-ui-1.8.21/themes/base/jquery.ui.all.css')"  />
+#end
+#if($iDemand.haveCss('listtree'))
+	<link rel="stylesheet" type="text/css" href="$!imageServer.get('/styles/listtree.css')"  />
+#end
+## ============================================JS=============================================
+#if($iDemand.haveJs('WdatePicker'))
+	<script type="text/javascript" src="$appServer.get('/scripts/My97DatePicker/WdatePicker.js')"></script>
+#end
+#if($iDemand.haveJs('jquery'))
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery-1.4.2.min.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/json2.js')"></script>
+#end
+#if($iDemand.haveJs('jquery-1.7.2'))
+    <script type="text/javascript" src="$appServer.get('/scripts/jquery-1.7.2.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/json2.js')"></script>
+#end
+#if($iDemand.haveJs('jqueryForm'))
+	<script type="text/javascript" src="$appServer.get('scripts/jqueryeasyui/jquery.form.js')"></script>
+#end
+#if($iDemand.haveJs('jquery.validate'))
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.metadata.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.validate.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.validate.custom_methods.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.validate.messages_cn.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.md5.js')"></script>
+#end
+#if($iDemand.haveJs('jquery.metadata'))
+	<script type="text/javascript" src="$appServer.get('scripts/jquery.metadata.js')"></script>
+#end
+#if($iDemand.haveJs('jquery.show'))
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery-show.js')"></script>
+#end
+
+#if($iDemand.haveJs('z-tree'))
+	<script type="text/javascript" src="$appServer.get('/scripts/z-tree/jquery.ztree.core-3.5.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/z-tree/jquery.ztree.excheck-3.5.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/z-tree/jquery.ztree.exhide-3.5.23.js')"></script>
+#end
+##勿删 菜单树需要使用 start
+#if($iDemand.haveJs('ztree'))
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.ztree-2.6.js')"></script>
+#end
+#if($iDemand.haveCss('ztree'))
+	<link rel="stylesheet" type="text/css" href="$imageServer.get('/styles/zTreeStyle.css')" />
+#end
+##勿删 菜单树需要使用 end
+#if($iDemand.haveJs('jquery.ui.js'))
+    <script src="$!appServer.get('/scripts/jquery-ui-1.8.21/ui/jquery-ui-1.8.21.custom.js')"></script>
+#end
+#if($iDemand.haveJs('layer'))
+	<script type="text/javascript" src="$appServer.get('/scripts/layer.js')"></script>
+#end
+#if($iDemand.haveJs('fckeditor'))
+	<script type="text/javascript" src="$appServer.get('/scripts/fckeditor/fckeditor.js')"></script>
+#end
+#if($iDemand.haveJs('ckeditor'))
+	<script type="text/javascript" src="$appServer.get('/scripts/ckeditor/ckeditor.js')"></script>
+#end
+#if($iDemand.haveJs('bgiframe'))
+    <script type="text/javascript" src="$appServer.get('/scripts/jquery.bgiframe.pack.js')"></script>
+#end
+#if($iDemand.haveJs('autocomplete'))
+    <script type="text/javascript" src="$appServer.get('/scripts/jqueryautocomplete/jquery.autocomplete.pack.js')"></script>
+#end
+#if($iDemand.haveJs('checkIdCard'))
+	<script type="text/javascript" src="$appServer.get('/scripts/checkIdCard.js')"></script>
+#end
+#if($iDemand.haveJs('jquery.form'))
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.form.js')"></script>
+#end
+#if($iDemand.haveJs('funcCheck'))
+	<script type="text/javascript" src="$appServer.get('/scripts/funcCheck.js')"></script>
+#end
+#if($iDemand.haveJs('addrSelect'))
+	<script type="text/javascript" src="$appServer.get('/scripts/addrSelect.js')"></script>
+#end
+#if($iDemand.haveJs('formUtil'))
+	<script type="text/javascript" src="$appServer.get('/scripts/formUtil.js')"></script>
+#end
+
+##===================================HITOP平台运行系统添加 START==================================
+#if($iDemand.haveJs('helper'))
+	<script type="text/javascript" src="$appServer.get('/scripts/bignumber.min.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.form.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/ccps.overlay.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/ccps.helper.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/ccps.ready.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/jsonpage-1.0.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/jquery.fileDownload.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/tablescroll.js')"></script>
+	<script type="text/javascript" src="$appServer.get('/scripts/xcConfirm/js/alertify.js')"></script>
+#end
+#if($iDemand.haveJs('jsonpage'))
+	<script type="text/javascript" src="$appServer.get('/scripts/jsonpage-1.0.js')"></script>
+#end
+##===================================清算平台运行系统添加 END====================================
