@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>积分商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.css">
+		<link rel="stylesheet" href="css/app.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			p {
+				text-indent: 22px;
+			}
+			.title {
+				margin: 35px 15px 10px;
+			}
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px;
+			}
+			input {
+				color: #000;
+			}
+			.mui-table-view-cell {
+				padding: 16px 15px;
+			}
+			.mui-table-view-cell > a:not(.mui-btn) {
+				margin: -16px -15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<div class="mui-inner-wrap">
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+					<h1 class="mui-title">我&nbsp;&nbsp;的</h1>
+				</header>
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+					<div class="mui-card" style="margin: 10px 0;">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right" href="points.html" id="points">
+									<span class="mui-badge mui-badge-danger">2,012</span>
+									积分
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-collapse mui-active">
+								<a class="mui-navigate-right" href="#">订单</a>
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<a class="mui-navigate-right" href="order_list.html">
+											<span class="mui-badge mui-badge-warning">1笔</span>
+											待发货
+										</a>
+									</li>
+									<li class="mui-table-view-cell">
+										<a class="mui-navigate-right" href="order_list.html">
+											<span class="mui-badge mui-badge-warning">2笔</span>
+											待收货
+										</a>
+									</li>
+									<li class="mui-table-view-cell">
+										<a class="mui-navigate-right" href="order_list.html" id="order_list">
+											<span class="mui-badge mui-badge-warning">10笔</span>
+											全部
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="mui-table-view-cell mui-collapse mui-active">
+								<a class="mui-navigate-right" href="#">收货地址</a>
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<a class="mui-navigate-right" href="address.html">
+											湖北省 武汉市 江岸区 香港路建设大道浙商大厦22F
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					</div>
+				</div>
+			</div>
+			<nav class="mui-bar mui-bar-tab">
+				<a class="mui-tab-item" href="index.html" id="index">
+					<span class="mui-icon mui-icon-home"></span>
+					<span class="mui-tab-label">首页</span>
+				</a>
+				<a class="mui-tab-item" href="goods_list.html" id="goods">
+					<span class="mui-icon mui-icon-bars"></span>
+					<span class="mui-tab-label">商品兑换</span>
+				</a>
+				<a class="mui-tab-item mui-active" href="info.html" id="info">
+					<span class="mui-icon mui-icon-contact"></span>
+					<span class="mui-tab-label">我的</span>
+				</a>
+			</nav>
+		</div>
+		<script src="js/mui.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false,
+			});
+			 //主界面支持区域滚动；
+			mui('#offCanvasContentScroll').scroll();
+			
+			window.addEventListener('toggle', function(event) {
+				if (event.target.id === 'M_Toggle') {
+					var isActive = event.detail.isActive;
+					var table = document.querySelector('.mui-table-view');
+					var card = document.querySelector('.mui-card');
+					if (isActive) {
+						card.appendChild(table);
+						card.style.display = '';
+					} else {
+						var content = document.querySelector('.mui-content');
+						content.insertBefore(table, card);
+						card.style.display = 'none';
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

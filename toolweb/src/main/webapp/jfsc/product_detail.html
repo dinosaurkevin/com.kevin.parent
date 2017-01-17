@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>商品详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.css">
+		<link rel="stylesheet" href="css/app.css"/>
+		<style>
+			.mui-table-view .mui-pull-left, .mui-table-view .mui-pull-right {
+				 color: #666;
+				 font-size: 11pt;
+			}
+			.mui-table-view .mui-pull-left span.point, .mui-table-view .mui-pull-right span.point {
+				 color: #ff6700;
+				 font-size: 15pt;
+			}
+			.mui-table-view .mui-pull-left span, .mui-table-view .mui-pull-right span {
+				 color: #4e4e4e;
+				 font-size: 12pt;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-inner-wrap">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+				<h1 class="mui-title">商品详情</h1>
+			</header>
+			<form>
+			<div class="mui-scroll">
+			<!-- 详情页内容 begin -->
+				<div class="mui-content" style="margin-top: 44px;">
+					<div class="mui-row">
+						<!-- 图片展示&产品名称 -->
+				        <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+					            <li class="mui-table-view-cell mui-col-xs-12">
+					            	<!-- TODO 动态获取 -->
+					                <img class="mui-media-object" src="images/goods/g1.jpg" style="height:150px">
+					                <div class="mui-pull-left" style="font-size: 14pt; color: #3e3e3e; margin-top: 5px;">
+					                	<!-- TODO 动态获取 -->
+					                	2016猴年金典邮票
+					                </div>
+					            </li>
+				            </ul>
+				        </div>
+					    <!-- 商品说明 -->
+					    <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+						            <li class="mui-table-view-cell mui-col-xs-12">
+						                <div class="mui-pull-left">
+						                	商品说明
+						                </div>
+						            </li>
+						            <li class="mui-table-view-cell mui-col-xs-12">
+						                <div class="mui-pull-left" style="font-size: 12pt; text-align: left; color: #3e3e3e; padding: 0px 2px 3px 6px;">
+						                	<!-- TODO 动态获取 -->
+						                	凡事购买商品会员,即可获得中矿旗下,禾商交易所发行的【2016猴年金典邮票】
+						                </div>
+						            </li>
+					            </ul>
+				        </div>
+				        <!-- 商品所需&商品剩余份额 -->
+				        <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+					            <li class="mui-table-view-cell mui-col-xs-6">
+									<div class="mui-pull-left">
+										<!-- TODO 动态获取 -->
+										需要积分：<span class="point">30</span>
+									</div>
+								</li>
+								<li class="mui-table-view-cell mui-col-xs-6">
+									<div class="mui-pull-right">
+										<!-- TODO 动态获取 -->
+										剩余：<span class="point">200</span>&nbsp;份
+									</div>
+								</li>
+							</ul>
+				        </div>
+				        <!-- 会员积分情况 -->
+				        <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+					            <li class="mui-table-view-cell mui-col-xs-12">
+									<div class="mui-pull-left">
+										<!-- TODO 动态获取 -->
+										可用积分：<span class="point">1204</span>
+									</div>
+								</li>
+							</ul>
+				        </div>
+				        <!-- 服务&配送介绍 -->
+				        <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+				        		<li class="mui-table-view-cell mui-col-xs-12">
+									<div class="mui-pull-left">
+										<!-- TODO 动态获取&数据字典 -->
+										服务：<span>本商品由xxxxx提供</span>
+									</div>
+								</li>
+								<li class="mui-table-view-cell mui-col-xs-12">
+									<div class="mui-pull-left">
+										<!-- TODO 动态获取&数据字典 -->
+										配送：<span>免费配送</span>
+									</div>
+								</li>
+							</ul>
+				        </div>
+				        <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+				        		<li class="mui-table-view-cell mui-col-xs-8">
+									<div class="mui-pull-left">
+										数量：
+										<div class="mui-numbox" data-numbox-min='1'>
+											<!-- "-"按钮，点击可减小当前数值 -->
+											<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+											<input class="mui-numbox-input" type="number" value="1" />
+											  <!-- "+"按钮，点击可增大当前数值 -->
+											<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+										</div>
+										份
+									</div>
+								</li>
+								<li class="mui-table-view-cell mui-col-xs-4">
+									<div class="mui-pull-right">
+										<a id="payOrder" href="order_confirm.html" class="mui-btn mui-btn-primary">兑换</a>
+									</div>
+								</li>
+							</ul>
+				        </div>
+				    </div>
+				</div>
+		    </form>
+			<!-- 详情页内容 end-->
+			</div>
+		</div>
+		<script src="js/mui.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+
+</html>

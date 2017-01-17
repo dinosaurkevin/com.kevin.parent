@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>全部订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<style>
+			.mui-off-canvas-right {
+				color: inherit;
+			}
+			.mui-off-canvas-backdrop {
+				margin-bottom: 0;
+			}
+			.dd_head {
+				text-align: right;
+				font-size: 10pt;
+			}
+			.dd_head .dd_no {
+				float: left;
+				margin-left: -10px;
+			}
+			.dd_head .dd_status {
+				margin-right: -10px;
+				float: right;
+			}
+			.dd_head .dd_time {
+				color: #636363;
+				overflow: hidden;
+				white-space: nowrap;
+				float: left;
+				margin-left: 1em;
+			}
+			.dd_body {
+				width: 110%;
+			}
+			.dd_body .dd_pic {
+				border-radius: 3px;
+				margin-right: 5px;
+				width: 5em;
+				height: 5em;
+				max-width: 8em;
+			}
+			.dd_body .mui-media-body {
+				padding: 0.8em 0;
+			}
+			.dd_body .dd_title {
+				font-size: 13pt;
+			}
+			.dd_body .dd_detail {
+				font-size: 11pt;
+				margin-top: 0.8em;
+				color: #838383;
+			}
+			.dd_head .dd_status {
+				color: #ff6700;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--侧滑菜单容器-->
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!--菜单部分-->
+			<aside id="offCanvasSide" class="mui-off-canvas-right" style="background-color: #efeff4;">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view mui-unfold" style="font-size: 11pt; color: #333;"> 
+					        <li class="mui-table-view-cell mui-collapse mui-active">
+					            <a class="mui-navigate-right" href="#" style="color: #6e6e6e;">下单时间</a>
+					            <div class="mui-collapse-content">
+					                <div class="mui-input-row mui-checkbox">
+										<label>最近三月</label>
+										<input name="date" type="checkbox">
+									</div>
+									<div class="mui-input-row mui-checkbox">
+										<label>最近六月</label>
+										<input name="date" type="checkbox" checked>
+									</div>
+									<div class="mui-input-row mui-checkbox">
+										<label>最近一年</label>
+										<input name="date" type="checkbox">
+									</div>
+					            </div>
+					        </li>
+					        <li class="mui-table-view-cell mui-collapse mui-active" style="margin-top: 5px;">
+					            <a class="mui-navigate-right" href="#" style="color: #6e6e6e;">订单状态</a>
+					            <div class="mui-collapse-content">
+					                <div class="mui-input-row mui-checkbox">
+										<label>待付款</label>
+										<input name="status" type="checkbox">
+									</div>
+									<div class="mui-input-row mui-checkbox">
+										<label>待发货</label>
+										<input name="status" type="checkbox" checked>
+									</div>
+									<div class="mui-input-row mui-checkbox">
+										<label>待收货</label>
+										<input name="status" type="checkbox">
+									</div>
+									<div class="mui-input-row mui-checkbox">
+										<label>已完成</label>
+										<input name="status" type="checkbox" checked>
+									</div>
+									<div class="mui-input-row mui-checkbox">
+										<label>已关闭</label>
+										<input name="status" type="checkbox">
+									</div>
+									<div class="mui-input-row mui-checkbox">
+										<label>全额退款</label>
+										<input name="status" type="checkbox" checked>
+									</div>
+									<div class="mui-input-row mui-checkbox">
+										<label>部分退款</label>
+										<input name="status" type="checkbox">
+									</div>
+					            </div>
+					        </li>
+					        <li style="height: 50px;"></li>
+					    </ul>
+					</div>
+					<div class="mui-bar" style="text-align: right;bottom: 10px;">
+						<button type="button" class="mui-btn" id="offCanvasHide">
+							重置
+						</button>
+						<button type="button" class="mui-btn mui-btn-primary">
+							确认
+						</button>
+					</div>
+				</div>
+			</aside>
+			<div class="mui-inner-wrap">
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+					<a id="offCanvasBtn" href="#offCanvasSide" class="mui-icon mui-action-menu mui-pull-right" style="font-size: 11pt; padding-top: 15px; color: #6e6e6e;">筛选</a>
+					<h1 class="mui-title">全部订单</h1>
+				</header>
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper" style="margin-bottom: 44px;">
+					<div class="mui-scroll">
+						<!--数据列表-->
+						<ul class="mui-table-view order_list">
+							<li class="mui-table-view-cell mui-media">
+								<div class="dd_head">
+									<span class="dd_no">订单号:6005700001</span>
+									<span class="dd_status">待付款</span>
+									<span class="dd_time">2016-11-28 12:34:56</span>
+								</div>
+								<a class="mui-navigate-right dd_body" href="order_detail.html" style="padding-top: 0.2em;">
+									<img class="mui-media-object mui-pull-left dd_pic" src="images/goods/g1.jpg">
+									<div class="mui-media-body">
+										<div class='mui-ellipsis dd_title'>小米电风扇</div>
+										<div class="dd_detail">共1件商品，实付100积分</div>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media">
+								<div class="dd_head">
+									<span class="dd_no">订单号:6005700002</span>
+									<span class="dd_status">待收货</span>
+									<span class="dd_time">2016-11-28 12:34:56</span>
+								</div>
+								<a class="mui-navigate-right dd_body" href="order_detail.html">
+									<img class="mui-media-object mui-pull-left dd_pic" src="images/goods/g2.jpg">
+									<div class="mui-media-body">
+										<div class='mui-ellipsis dd_title'>iPad Air Pro</div>
+										<div class="dd_detail">共9件商品，实付900积分</div>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media">
+								<div class="dd_head">
+									<span class="dd_no">订单号:6005700003</span>
+									<span class="dd_status">已完成</span>
+									<span class="dd_time">2016-11-28 12:34:56</span>
+								</div>
+								<a class="mui-navigate-right dd_body" href="order_detail.html">
+									<img class="mui-media-object mui-pull-left dd_pic" src="images/goods/g3.jpg">
+									<div class="mui-media-body">
+										<div class='mui-ellipsis dd_title'>荣耀V8</div>
+										<div class="dd_detail">共3件商品，实付1000积分</div>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media">
+								<div class="dd_head">
+									<span class="dd_no">订单号:6005700004</span>
+									<span class="dd_status">全额退款</span>
+									<span class="dd_time">2016-11-28 12:34:56</span>
+								</div>
+								<a class="mui-navigate-right dd_body" href="order_detail.html">
+									<img class="mui-media-object mui-pull-left dd_pic" src="images/goods/g4.jpg">
+									<div class="mui-media-body">
+										<div class='mui-ellipsis dd_title'>小米笔记本</div>
+										<div class="dd_detail">共5件商品，实付520积分</div>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media">
+								<div class="dd_head">
+									<span class="dd_no">订单号:6005700005</span>
+									<span class="dd_status">部分退款</span>
+									<span class="dd_time">2016-11-28 12:34:56</span>
+								</div>
+								<a class="mui-navigate-right dd_body" href="order_detail.html">
+									<img class="mui-media-object mui-pull-left dd_pic" src="images/goods/g5.jpg">
+									<div class="mui-media-body">
+										<div class='mui-ellipsis dd_title'>小米净水器</div>
+										<div class="dd_detail">共5件商品，实付140积分</div>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media">
+								<div class="dd_head">
+									<span class="dd_no">订单号:6005700006</span>
+									<span class="dd_status">未付款</span>
+									<span class="dd_time">2016-11-28 12:34:56</span>
+								</div>
+								<a class="mui-navigate-right dd_body" href="order_detail.html">
+									<img class="mui-media-object mui-pull-left dd_pic" src="images/goods/g6.jpg">
+									<div class="mui-media-body">
+										<div class='mui-ellipsis dd_title'>米兔机器人</div>
+										<div class="dd_detail">共10件商品，实付101积分</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- off-canvas backdrop -->
+				<div class="mui-off-canvas-backdrop"></div>
+				<nav class="mui-bar mui-bar-tab">
+					<a class="mui-tab-item" href="index.html">
+						<span class="mui-icon mui-icon-home"></span>
+						<span class="mui-tab-label">首页</span>
+					</a>
+					<a class="mui-tab-item mui-active" href="goods_list.html">
+						<span class="mui-icon mui-icon-bars"></span>
+						<span class="mui-tab-label">商品兑换</span>
+					</a>
+					<a class="mui-tab-item" href="info.html">
+						<span class="mui-icon mui-icon-contact"></span>
+						<span class="mui-tab-label">我的</span>
+					</a>
+				</nav>
+			</div>
+		</div>
+		<script src="js/mui.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false,
+				pullRefresh: {
+					container: '#offCanvasContentScroll',
+					down: {
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+			
+			mui('.mui-table-view').on('tap', '.mui-collapse', function() {
+			  	if (this.classList.contains('mui-active')) {
+			  		this.classList.remove('mui-active');
+			  	} else {
+			  		this.classList.add('mui-active');
+			  	}
+			});  
+						
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					var table = document.body.querySelector('.order_list');
+					var cells = document.body.querySelectorAll('.order_list .mui-table-view-cell');
+					for (var i = cells.length, len = i + 3; i < len; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell';
+						li.innerHTML = cells[len-i].innerHTML;
+						//下拉刷新，新纪录插到最前面；
+						table.insertBefore(li, table.firstChild);
+					}
+					mui('#offCanvasContentScroll').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+					mui('#offCanvasContentScroll').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+					var table = document.body.querySelector('.order_list');
+					var cells = document.body.querySelectorAll('.order_list .mui-table-view-cell');
+					for (var i = cells.length, len = i + 5; i < len; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell';
+						li.innerHTML = cells[len - i].innerHTML;
+						table.appendChild(li);
+					}
+				}, 1500);
+			}
+			
+			
+			 //侧滑容器父节点
+			var offCanvasWrapper = mui('#offCanvasWrapper');
+			 //侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
+			document.getElementById('offCanvasHide').addEventListener('tap', function() {
+				offCanvasWrapper.offCanvas('close');
+			});
+			 //主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
+			 //实现ios平台的侧滑关闭页面；
+			/*if (mui.os.plus && mui.os.ios) {
+				offCanvasWrapper[0].addEventListener('shown', function(e) { //菜单显示完成事件
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
+					});
+				});
+				offCanvasWrapper[0].addEventListener('hidden', function(e) { //菜单关闭完成事件
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'close'
+					});
+				});
+			}*/
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>收货地址详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.css">
+		<link rel="stylesheet" href="css/app.css"/>
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-table-view .mui-pull-left, .mui-table-view .mui-pull-right {
+				 color: #666;
+				 font-size: 11pt;
+			}
+			.mui-table-view .mui-pull-left span.point, .mui-table-view .mui-pull-right span.point {
+				 color: #ff6700;
+				 font-size: 15pt;
+			}
+			.mui-table-view .mui-pull-left span, .mui-table-view .mui-pull-right span {
+				 color: #4e4e4e;
+				 font-size: 12pt;
+			}
+
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-inner-wrap">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+				<h1 class="mui-title">收货地址详情</h1>
+			</header>
+			<div class="mui-scroll">
+			<!-- 详情页内容 begin -->
+				<div class="mui-content" style="margin-top: 44px;">
+					<form class="mui-input-group">
+			    <div class="mui-input-row">
+			        <label>收件人</label>
+			    <input type="text" class="mui-input-clear" placeholder="输入请输入用户名">
+			    </div>
+			    <div class="mui-input-row">
+			        <label>联系电话</label>
+			        <input type="text" class="mui-input-clear" placeholder="输入联系电话">
+			    </div>
+			    <div class="mui-col-xs-12">
+		        	<ul class="mui-table-view mui-grid-view">
+		        		<li class="mui-table-view-cell mui-col-xs-12">
+			                <div class="mui-pull-left">
+			                	<span style="font-size: 11pt; color: #666;">所在地区</span>
+			                </div>
+			            </li>
+		        		<li class="mui-table-view-cell mui-col-xs-12">
+							<div class="mui-pull-left" style="width:100%" >
+								<button id='showCityPicker3' class="mui-btn mui-btn-block" type='button'>选择所在地区</button>
+							</div>
+						</li>
+					</ul>
+		        </div>
+			    <div class="mui-col-xs-12">
+		        	<ul class="mui-table-view mui-grid-view">
+		        		<li class="mui-table-view-cell mui-col-xs-12">
+			                <div class="mui-pull-left">
+			                	<span style="font-size: 11pt; color: #666;">详细地址</span>
+			                </div>
+			            </li>
+		        		<li class="mui-table-view-cell mui-col-xs-12">
+							<div class="mui-pull-left" style="width:100%" >
+								<textarea rows="4" placeholder="输入详细地址"></textarea>  
+							</div>
+						</li>
+					</ul>
+		        </div>
+		        <div class="mui-input-row">
+			        <label>邮政编码</label>
+			        <input type="text" class="mui-input-clear" placeholder="输入邮政编码">
+			    </div>
+			    <div class="mui-button-row">
+			        <button type="button" class="mui-btn mui-btn-primary" >确认</button>
+			        <button type="button" class="mui-btn mui-btn-danger" >取消</button>
+			    </div>
+			</form>
+				</div>
+		</div>
+		<script src="js/mui.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//-----------------------------------------
+					//-----------------------------------------
+					//					//级联示例
+					var cityPicker3 = new $.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					var showCityPickerButton = doc.getElementById('showCityPicker3');
+					var cityResult3 = doc.getElementById('showCityPicker3');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker3.show(function(items) {
+							cityResult3.innerText = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+		</script>
+	</body>
+
+</html>

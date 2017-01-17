@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>积分商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css"></link>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-table-view-cell {
+				padding: 16px 15px;
+			}
+			.mui-table-view-cell > a:not(.mui-btn) {
+				margin: -16px -15px;
+			}
+			.mui-pull-top-pocket.mui-block.mui-visibility{
+				margin-top: -44px;
+			}
+			.mui-table-view-cell.mui-row{
+				border-bottom: 1px solid;
+				border-color: #e6e6e6;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title">积&nbsp;&nbsp;分</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#allRecords"> 全部 </a>
+					<a class="mui-control-item" href="#earnRecords"> 赚取 </a>
+					<a class="mui-control-item" href="#consumeRecords"> 消费 </a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group">
+					<div id="allRecords" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-content mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view allRecords">
+									<li class="mui-table-view-cell mui-row">
+										<div class="mui-col-sm-5 mui-col-xs-5">注册有礼</div>
+										<div class="mui-col-sm-4 mui-col-xs-4 mui-badge-danger mui-badge-inverted">+10</div>
+										<div class="mui-col-sm-3 mui-col-xs-3">2016-10-02</div>
+									</li>
+									<li class="mui-table-view-cell mui-row">
+										<span class="mui-col-sm-5 mui-col-xs-5">满1000送200</span>
+										<span class="mui-col-sm-4 mui-col-xs-4 mui-badge-danger mui-badge-inverted">+200</span>
+										<span class="mui-col-sm-3 mui-col-xs-3">2016-10-02</span>
+									</li>
+									<li class="mui-table-view-cell mui-row">
+										<span class="mui-col-sm-5 mui-col-xs-5">商品兑换</span>
+										<span class="mui-col-sm-4 mui-col-xs-4 mui-badge-success mui-badge-inverted">-100</span>
+										<span class="mui-col-sm-3 mui-col-xs-3">2016-10-05</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="earnRecords" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-content mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view earnRecords">
+									<li class="mui-table-view-cell mui-row">
+										<div class="mui-col-sm-5 mui-col-xs-5">注册有礼</div>
+										<div class="mui-col-sm-4 mui-col-xs-4 mui-badge-danger mui-badge-inverted">+10</div>
+										<div class="mui-col-sm-3 mui-col-xs-3">2016-10-02</div>
+									</li>
+									<li class="mui-table-view-cell mui-row">
+										<span class="mui-col-sm-5 mui-col-xs-5">满1000送200</span>
+										<span class="mui-col-sm-4 mui-col-xs-4 mui-badge-danger mui-badge-inverted">+200</span>
+										<span class="mui-col-sm-3 mui-col-xs-3">2016-10-02</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+					<div id="consumeRecords" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-content mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view consumeRecords">
+									<li class="mui-table-view-cell mui-row">
+										<span class="mui-col-sm-5 mui-col-xs-5">商品兑换</span>
+										<span class="mui-col-sm-4 mui-col-xs-4 mui-badge-success mui-badge-inverted">-100</span>
+										<span class="mui-col-sm-3 mui-col-xs-3">2016-10-05</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.init();
+			(function($){
+				$('#scroll1').pullRefresh({
+					container: '#scroll1',
+					down: {
+						callback: pulldownRefreshScroll1
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefreshScroll1
+					}
+				})
+				$('#scroll2').pullRefresh({
+					container: '#scroll2',
+					down: {
+						callback: pulldownRefreshScroll2
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefreshScroll2
+					}
+				})
+				$('#scroll3').pullRefresh({
+					container: '#scroll3',
+					down: {
+						callback: pulldownRefreshScroll3
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefreshScroll3
+					}
+				})
+			})(mui);
+			
+			function pulldownRefreshScroll1() {
+				pulldownRefresh('scroll1','allRecords');
+			}
+			
+			function pullupRefreshScroll1() {
+				pullupRefresh('scroll1','allRecords');
+			}
+			function pulldownRefreshScroll2() {
+				pulldownRefresh('scroll2','earnRecords');
+			}
+			
+			function pullupRefreshScroll2() {
+				pullupRefresh('scroll2','earnRecords');
+			}
+			function pulldownRefreshScroll3() {
+				pulldownRefresh('scroll3','consumeRecords');
+			}
+			
+			function pullupRefreshScroll3() {
+				pullupRefresh('scroll3','consumeRecords');
+			}
+			
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh(scroll,classStr) {
+				setTimeout(function() {
+					var table = document.body.querySelector('.'+classStr);
+					var sign = '+';
+					var className = 'mui-badge-danger';
+					if(scroll == 'scroll3') {
+						sign = '-';
+						var className = 'mui-badge-success';
+					}
+					for (var i = 0; i < 5; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell mui-row';
+						var num = (length + 5 - i);
+						li.innerHTML = '<span class="mui-col-sm-5 mui-col-xs-5">刷新'+num+'</span><span class="mui-col-sm-4 mui-col-xs-4 '+className+' mui-badge-inverted">'+sign+'200</span><span class="mui-col-sm-3 mui-col-xs-3">2016-10-02</span>';
+						//下拉刷新，新纪录插到最前面；
+						table.insertBefore(li, table.firstChild);
+					}
+					mui('#'+scroll).pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh(scroll,classStr) {
+				setTimeout(function() {
+					mui('#'+scroll).pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+					var table = document.body.querySelector('.'+classStr);
+					var sign = '+';
+					var className = 'mui-badge-danger';
+					if(scroll == 'scroll3') {
+						sign = '-';
+						var className = 'mui-badge-success';
+					}
+					for (var i = 0; i < 5; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell mui-row';
+						var num = (length + 5 - i);
+						li.innerHTML = '<span class="mui-col-sm-5 mui-col-xs-5">加载'+num+'</span><span class="mui-col-sm-4 mui-col-xs-4 '+className+' mui-badge-inverted">'+sign+'200</span><span class="mui-col-sm-3 mui-col-xs-3">2016-10-02</span>';
+						table.appendChild(li);
+					}
+				}, 1500);
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>积分商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.css">
+		<link rel="stylesheet" href="css/app.css"/>
+		<style>
+			.mui-table-view-cell div {
+				color: #3e3e3e;
+			}
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object {
+				border: 1px solid #ffeeff;
+				border-bottom: 0;	
+				border-radius: 3px 3px 0 0;
+				height: 8em;
+			}
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {	
+			    border-radius: 0 0 3px 3px;
+			    height: 5em;
+			    margin-top: -1em;
+			   border: 1px solid #ffeeff;
+			    padding: 0.5em 0.2em;
+			    text-align: left;
+			    font-size: 9pt;
+			}    
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body div {
+				margin-top: 0.5em;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body div:first-of-type {
+				color: #3e3e3e;
+				font-size: 11pt;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body div:last-of-type {
+				color: #ccccff;
+				text-align: right;
+			}
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body div:last-of-type b {
+				color: #ff6700;
+				font-size: 12pt;
+			}
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body div:last-of-type img {
+				width: 0.8em;
+				height: 0.8em;
+			}
+			#slider {
+				max-height: 13em;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<a id="offCanvasBtn" href="#offCanvasSide" class="mui-icon mui-action-menu mui-icon-bars mui-pull-right"></a>
+			<h1 class="mui-title">积分&nbsp;商城</h1>
+		</header>-->
+		
+		<div id="slider" class="mui-slider" >
+			<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="images/slider/s4.jpg">
+					</a>
+				</div>
+				<!-- 第一张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/slider/s1.jpg">
+					</a>
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/slider/s2.jpg">
+					</a>
+				</div>
+				<!-- 第三张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/slider/s3.jpg">
+					</a>
+				</div>
+				<!-- 第四张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/slider/s4.jpg">
+					</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="images/slider/s1.jpg">
+					</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+	    <div class="mui-card" style="margin: 10px 0;">
+			<div class="mui-card-footer">
+				<a class="mui-card-link">我的积分&nbsp;&nbsp;<b style="color: #ff6700;">1204</b></a>
+				<a class="mui-card-link" href="order_list.html" id="order_list">我的订单</a>
+			</div>
+		</div>
+	    <ul class="mui-table-view mui-grid-view">
+	        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+	            <a href="#">
+	                <img class="mui-media-object" src="images/goods/g1.jpg">
+	                <div class="mui-media-body">
+	                	<div>小米电风扇</div>
+	                	<div>积分&nbsp;<b>101<img src="images/icon/coins.png"></b></div>
+	                </div></a></li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+	            <a href="#">
+	                <img class="mui-media-object" src="images/goods/g2.jpg">
+	                <div class="mui-media-body">
+	                	<div>线控自拍杆</div>
+	                	<div>积分&nbsp;<b>101<img src="images/icon/coins.png"></b></div>
+	                </div></a></li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+	            <a href="#">
+	            	<img class="mui-media-object" src="images/goods/g3.jpg">
+	                <div class="mui-media-body">
+	                	<div>车载充电器</div>
+	                	<div>积分&nbsp;<b>101<img src="images/icon/coins.png"></b></div>
+	                </div></a></li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+	            <a href="#">
+	                <img class="mui-media-object" src="images/goods/g4.jpg">
+	                <div class="mui-media-body">
+	                	<div>米兔儿童手表</div>
+	                	<div>积分&nbsp;<b>101<img src="images/icon/coins.png"></b></div>
+	                </div></a></li>
+	    </ul>
+	    <div style="text-align: center;">
+	    	<a href="goods_list.html" id="goods_list" class="mui-btn mui-btn-primary mui-btn-outlined" style="margin: 10px auto; width: 50%;">点击查看更多</a>
+	    </div>
+		<!-- off-canvas backdrop -->
+		<div class="mui-off-canvas-backdrop"></div>
+	    <nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#" id="index">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" href="goods_list.html" id="goods">
+				<span class="mui-icon mui-icon-bars"></span>
+				<span class="mui-tab-label">商品兑换</span>
+			</a>
+			<a class="mui-tab-item" href="info.html" id="info">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery.2.2.4.js"></script>
+		<script>
+			$.noConflict();
+		</script>
+		<script src="js/app.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false,
+			});
+			var slider = mui("#slider");
+			slider.slider({
+				interval: 3000
+			});
+		</script>
+	</body>
+
+</html>

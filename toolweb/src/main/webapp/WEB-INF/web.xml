@@ -48,8 +48,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
     在ContextLoaderListener中关联了ContextLoader这个类，所以整个加载配置过程由ContextLoader来完成。-->  
     <context-param>  
         <param-name>contextConfigLocation</param-name>  
-        <param-value>classpath:spring/spring.xml</param-value>  
-        <param-value>classpath:view/view.xml</param-value>  
+        <param-value>classpath:spring/spring.xml,classpath:view/view.xml</param-value>  
     </context-param>  
 
     <!--如果你的DispatcherServlet拦截"/"，为了实现REST风格，拦截了所有的请求，那么同时对*.js,*.jpg等静态文件的访问也就被拦截了。-->  
@@ -87,6 +86,10 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <servlet-name>default</servlet-name>  
         <url-pattern>*.xml</url-pattern>  
     </servlet-mapping>  
+        <servlet-mapping>  
+        <servlet-name>default</servlet-name>  
+        <url-pattern>/assets/*</url-pattern>  
+    </servlet-mapping>  
     <servlet-mapping>  
         <servlet-name>default</servlet-name>  
         <url-pattern>*.map</url-pattern>  
@@ -104,7 +107,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <!--2、<param-value>/WEB-INF/classes/dispatcher-servlet.xml</param-value>-->  
             <!--3、<param-value>classpath*:dispatcher-servlet.xml</param-value>-->  
             <!--4、多个值用逗号分隔-->  
-           <param-value>classpath:spring/spring.xml</param-value>  
+           <param-value>classpath:spring/controller.xml</param-value>  
         </init-param>  
         <load-on-startup>1</load-on-startup><!--是启动顺序，让这个Servlet随Servletp容器一起启动。-->  
     </servlet>  

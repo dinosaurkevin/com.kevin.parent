@@ -1,0 +1,43 @@
+html,
+body {
+	background-color: #efeff4;
+}
+p {
+	text-indent: 22px;
+}
+
+.mui-off-canvas-right {
+	color: #fff;
+}
+
+.title {
+	margin: 35px 15px 10px;
+}
+
+.title+.content {
+	margin: 10px 15px 35px;
+	color: #bbb;
+	text-indent: 1em;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+input {
+	color: #000;
+}
+
+.mui-off-canvas-backdrop {
+	margin-bottom: 44px;
+}
+
+.mui-title {
+	color: #555555;
+}
+
+.mui-off-canvas-wrap .mui-bar {
+	-webkit-box-shadow: 0 1px 6px #ccc;
+    box-shadow: 0 1px 6px #ccc;
+}
+.mui-content {
+	color: #3e3e3e;
+}

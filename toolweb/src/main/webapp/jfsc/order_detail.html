@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>订单详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<style>
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title">订单详情</h1>
+		</header>
+	    <ul class="mui-table-view mui-content">
+			<li class="mui-table-view-cell mui-media" style="padding: 1em;">
+				<div class="mui-media-body">
+					<div class='mui-ellipsis' style="float: left;">订单号：6005700001</div>
+					<div class="" style="float: right;"><span class="mui-badge mui-badge-success dd_status">已完成</span></div>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<div style="margin-bottom: 0.5em; color: #6e6e6e; font-size: 12pt;">兑换</div>
+				<a href="javascript:;">
+					<img class="mui-media-object mui-pull-left" src="images/goods/g2.jpg" style="width: 5em; height: 5em; max-width: 5em;">
+					<div class="mui-media-body" style="padding: 1em 0.5em;">
+						<div class='mui-ellipsis'>iPad Air Pro</div>
+						<div style="font-size: 11pt;margin-top: 0.5em;">积分&nbsp;<b style="font-size: 13pt; color: #ff6700;">101<img src="images/icon/coins.png" style="width: 1em; height: 1em;"></b></div>
+					</div>
+					<span class="mui-badge" style="font-size: 13pt;">X 1</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<div style="color: #6e6e6e; font-size: 12pt;">订单总额</div>
+				<a href="javascript:;" style="margin: 0;">
+					<div class="mui-pull-left">积分</div>
+					<div class="mui-pull-right" style="font-size: 13pt; color: #ff6700;">30</div>
+				</a>
+				<div class="mui-text-right" style="font-size: 11pt; color: #666;">应付总额：<span style="color: #ff6700; font-size: 15pt;">30</span> 积分</div>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<div style="color: #6e6e6e; font-size: 12pt;">支付信息</div>
+				<a href="javascript:;" style="margin: 0;">
+					<div class="mui-pull-left">积分</div>
+					<div class="mui-pull-right" style="color: #ff6700; font-size: 13pt;">30</div>
+				</a>
+			</li>
+		</ul>
+		<script src="js/mui.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			mui.init({
+				swipeBack: true,
+			});
+		</script>
+	</body>
+
+</html>

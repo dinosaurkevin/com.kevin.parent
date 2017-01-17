@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>核对订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.css">
+		<link rel="stylesheet" href="css/app.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-inner-wrap">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+				<h1 class="mui-title">核对订单</h1>
+			</header>
+			<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+			<form>
+			<!-- 订单页内容 begin -->
+				<div class="mui-content">
+					<div class="mui-row">
+						<!-- 收货地址 TODO暂时不需要
+					    <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+					            <li class="mui-table-view-cell mui-col-xs-12">
+					                <div class="mui-pull-left">
+					                	<h4>收货地址</h4>
+					                </div>
+					                
+					            </li>
+					            <a class="">
+					            <li class="mui-table-view-cell mui-media">
+							        <div class="mui-pull-left">
+					                	湖北省&nbsp;武汉市&nbsp;江岸区&nbsp;浙商大厦22F&nbsp;王维&nbsp;15927587583
+					                </div>
+							    </li>
+					    		</a>
+				            </ul>
+				        </div> -->
+						<!-- 兑换说明 -->
+					    <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view">
+					            <li class="mui-table-view-cell mui-col-xs-12">
+					                <div class="mui-pull-left">
+					                	<span style="font-size: 11pt; color: #666;">兑换物品</span>
+					                </div>
+					            </li>
+					            <li class="mui-table-view-cell mui-media">
+							        <a href="javascript:;">
+										<img class="mui-media-object mui-pull-left" src="images/goods/g1.jpg" style="width: 5em; height: 5em; max-width: 5em;">
+										<div class="mui-media-body" style="padding: 1em 0.5em;">
+											<div class='mui-ellipsis'>2016猴年金典邮票</div>
+											<div style="font-size: 11pt;margin-top: 0.5em;">所需积分&nbsp;<b style="font-size: 13pt; color: #ff6700;">101<img src="images/icon/coins.png" style="width: 1em; height: 1em;"></b></div>
+										</div>
+										<span class="mui-badge" style="font-size: 13pt;">X 10</span>
+									</a>
+							    </li>
+				            </ul>
+				        </div>
+				        <!-- 服务&配送介绍 -->
+				        <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+				        		<li class="mui-table-view-cell mui-col-xs-12">
+					                <div class="mui-pull-left">
+					                	<span style="font-size: 11pt; color: #666;">备注信息</span>
+					                </div>
+					            </li>
+				        		<li class="mui-table-view-cell mui-col-xs-12">
+									<div class="mui-pull-left" style="width:100%" >
+										<textarea rows="4"placeholder="对本次订单的说明"></textarea>  
+									</div>
+								</li>
+							</ul>
+				        </div>
+				        <!-- 会员积分情况 -->
+				        <div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+					            <li class="mui-table-view-cell mui-col-xs-12">
+									<div class="mui-pull-left">
+										<span style="font-size: 11pt; color: #666;">订单总额</span>
+									</div>
+								</li>
+								<li class="mui-table-view-cell mui-col-xs-6">
+									<div class="mui-pull-left" style="font-size: 12pt; color: #3e3e3e;">
+										<!-- TODO 动态获取 -->
+										积分：<span style="color: #ff6700; font-size: 15pt;">30</span>
+									</div>
+								</li>
+								<li class="mui-table-view-cell mui-col-xs-6">
+									<div class="mui-pull-right">
+										<button id="offOrderBtn" type="button" class="mui-btn mui-btn-outlined">取消</button>
+										<button type="button" class="mui-btn mui-btn-primary">提交订单</button>
+									</div>
+								</li>
+							</ul>
+				        </div>
+				        <!--<div class="mui-col-xs-12">
+				        	<ul class="mui-table-view mui-grid-view">
+				        		<li class="mui-table-view-cell mui-col-xs-6">
+									<div class="mui-pull-left">
+										订单总额：30积分
+									</div>
+								</li>
+								<li class="mui-table-view-cell mui-col-xs-12">
+									<div class="mui-pull-right">
+										<button id="offOrderBtn" type="button" class="mui-btn mui-btn-outlined">取消</button>
+										<button type="button" class="mui-btn mui-btn-primary">提交订单</button>
+									</div>
+								</li>
+							</ul>
+				        </div>-->
+				    </div>
+				</div>
+		    </form>
+			<!-- 详情页内容 end-->
+			</div>
+		</div>
+		<script src="js/jquery.2.2.4.js"></script>
+		<script src="js/mui.js"></script>
+		<script>
+			$(function(){
+				$("#offOrderBtn").click(function(){
+					mui.confirm('您确定要取消该订单吗?','取消订单',['取消','确定'],function(e){
+						if (e.index == 1) {
+                        	alert('确定');
+	                    } else {
+	                        alert('取消');
+	                    }
+					});
+				});
+
+			});
+		</script>
+	</body>
+
+</html>

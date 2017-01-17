@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mysql.AUTHORITY_INFO" >
+  <resultMap id="BaseResultMap" type="com.kevin.toolweb.api.pojo.AuthorityInfo" >
+    <result column="auth_id" property="authId" jdbcType="BIGINT" />
+    <result column="parent_auth_id" property="parentAuthId" jdbcType="BIGINT" />
+    <result column="auth_name" property="authName" jdbcType="VARCHAR" />
+    <result column="auth_level" property="authLevel" jdbcType="INTEGER" />
+    <result column="function_no" property="functionNo" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="auth_type" property="authType" jdbcType="CHAR" />
+    <result column="auth_status" property="authStatus" jdbcType="CHAR" />
+    <result column="sort_num" property="sortNum" jdbcType="INTEGER" />
+    <result column="open_type" property="openType" jdbcType="CHAR" />
+    <result column="parent_auth_id" property="parentAuthId" jdbcType="BIGINT" />
+    <result column="sub_system_code" property="subSystemCode" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="BIGINT" />
+    <result column="gmt_modify" property="gmtModify" jdbcType="BIGINT" />
+    <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="baseColumns" >
+  t1.auth_level,t1.parent_auth_id, t1.auth_id, t1.auth_name, t1.function_no, t1.url, t1.auth_type, t1.auth_status, t1.sort_num, 
+    t1.open_type, t1.is_leaf, t1.sub_system_code, t1.remark1, t1.gmt_create, t1.gmt_modify, 
+    t1.reserve1
+  </sql>
+  
+  <select id="getAllAuthorityInfo"  resultMap="BaseResultMap">
+   SELECT <include refid="baseColumns" /> from  authority_info t1 where  t1.auth_status = '1' order by auth_level,sort_num
+  </select>
+  
+    
+</mapper>

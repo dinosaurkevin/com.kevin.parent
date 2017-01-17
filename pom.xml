@@ -565,6 +565,18 @@
     <artifactId>plexus-utils</artifactId>
     <version>3.0.24</version>
 </dependency>
+<!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+
 	</dependencies> 
 
 <distributionManagement>
